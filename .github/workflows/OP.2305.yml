@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: LEDE-K2P
+name: OP.2305
 
 on:
   repository_dispatch:
@@ -20,12 +20,12 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-  REPO_BRANCH: master
-  FEEDS_CONF: feeds.conf.default.LEDE
-  CONFIG_FILE: K2P.config
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
+  REPO_URL: https://github.com/openwrt/openwrt
+  REPO_BRANCH: 'v23.05.2'
+  FEEDS_CONF: feeds.2305
+  CONFIG_FILE: OP.2305
+  DIY_P1_SH: OP.2305.1.sh
+  DIY_P2_SH: OP.2305.2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
