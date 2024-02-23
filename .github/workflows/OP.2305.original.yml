@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: OP.2305
+name: OP.2305.OR
 
 on:
   repository_dispatch:
