@@ -35,4 +35,4 @@ git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/pas
 git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
 
 # update golang
-git clone https://github.com/openwrt/packages.git xyz
+#git clone https://github.com/openwrt/packages.git xyz
