@@ -30,10 +30,11 @@ wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfro
 
 #update golang
 pushd feeds/packages/lang
-git clone https://github.com/coolsnowwolf/packages.git xyz
 rm -rf golang
+git clone https://github.com/coolsnowwolf/packages.git xyz
 cp -rf xyz/lang/golang golang
 rm -rf xyz
+echo 'finished' > abc
 popd
 
 #cp -rf xyz/lang/golang feeds/packages/lang/golang
