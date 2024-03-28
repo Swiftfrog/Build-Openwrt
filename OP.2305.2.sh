@@ -33,11 +33,9 @@ wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfro
 pushd feeds/packages/lang
 rm -rf golang
 popd
-pushd xyz/lang
-cp golang /feeds/packages/lang/golang
-popd
-#rm -rf feeds/packages/lang/golang
-#cp -rf xyz/lang/golang feeds/packages/lang/golang
+
+cp -rf xyz/lang/golang feeds/packages/lang/golang
+
 rm -rf xyz
 
 #pushd feeds/packages/lang
