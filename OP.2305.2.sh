@@ -29,9 +29,15 @@ wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfro
 # wget -O target/linux/x86/patches-5.15/993-bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch https://raw.githubusercontent.com/Swiftfrog/OPENWRT-X86_64/main/993-bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
 
 #update golang
-git clone https://github.com/openwrt/packages.git xyz
-rm -rf feeds/packages/lang/golang
-cp -rf xyz/lang/golang feeds/packages/lang/golang
+#git clone https://github.com/openwrt/packages.git xyz
+pushd feeds/packages/lang
+rm -rf golang
+popd
+pushd xyz/lang
+cp golang /feeds/packages/lang/golang
+popd
+#rm -rf feeds/packages/lang/golang
+#cp -rf xyz/lang/golang feeds/packages/lang/golang
 rm -rf xyz
 
 #pushd feeds/packages/lang
