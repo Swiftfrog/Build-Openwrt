@@ -34,7 +34,6 @@ rm -rf golang
 git clone https://github.com/coolsnowwolf/packages.git xyz
 cp -rf xyz/lang/golang golang
 rm -rf xyz
-echo 'finished' > abc
 popd
 
 #cp -rf xyz/lang/golang feeds/packages/lang/golang
