@@ -30,7 +30,7 @@ wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfro
 
 #update golang
 pushd feeds/packages/lang
-git clone https://github.com/openwrt/packages.git xyz
+git clone https://github.com/coolsnowwolf/packages.git xyz
 rm -rf golang
 cp -rf xyz/lang/golang golang
 rm -rf xyz
