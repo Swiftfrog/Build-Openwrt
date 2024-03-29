@@ -33,6 +33,7 @@ git clone https://github.com/kiddin9/luci-theme-edge.git package/luci-theme-edge
 # 添加passwall
 git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
+git clone https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
 
 # update golang
 #git clone https://github.com/openwrt/packages.git xyz
