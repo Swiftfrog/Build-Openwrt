@@ -21,23 +21,7 @@ wget -O include/kernel-defaults.mk https://raw.githubusercontent.com/Swiftfrog/B
 wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/Makefile
 #curl -s https://downloads.openwrt.org/releases/23.05.2/targets/x86/64/openwrt-23.05.2-x86-64.manifest | grep kernel | awk '{print $3}' | awk -F- '{print $3}' > vermagic
 
-# Modify BCM57810
-# wget -O target/linux/x86/patches-5.15/993-bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch https://raw.githubusercontent.com/Swiftfrog/OPENWRT-X86_64/main/993-bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
-
 #update golang
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 22.x feeds/packages/lang/golang
 
-#pushd feeds/packages/lang
-#rm -rf golang
-#git clone https://github.com/coolsnowwolf/packages.git xyz
-#cp -rf xyz/lang/golang golang
-#rm -rf xyz
-#popd
-
-#pushd feeds/packages/lang
-#rm -rf golang && svn co https://github.com/openwrt/packages/branches/openwrt-22.03/lang/golang
-#rm -rf golang && svn co https://github.com/openwrt/packages/trunk/lang/golang
-#rm -rf golang && svn co https://github.com/coolsnowwolf/packages/trunk/lang/golang
-#rm -rf golang && svn co https://github.com/immortalwrt/packages/trunk/lang/golang
-#popd
