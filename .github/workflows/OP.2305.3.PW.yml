@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: OP.2305.3.PW
+name: OP.2305.4.PW
 
 on:
   repository_dispatch:
@@ -21,7 +21,7 @@ on:
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  REPO_BRANCH: 'v23.05.3'
+  REPO_BRANCH: 'v23.05.4'
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: OP.2305.PW
   DIY_P1_SH: OP.2305.1.sh
