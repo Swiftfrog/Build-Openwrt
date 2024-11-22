@@ -24,8 +24,8 @@ env:
   REPO_BRANCH: 'v23.05.5'
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: OP.2305.5.PW2
-  DIY_P1_SH: OP.2305.1.sh
-  DIY_P2_SH: pw2.sh
+  DIY_P1_SH: OP.2305.5.1.sh
+  DIY_P2_SH: OP.2305.5.2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
