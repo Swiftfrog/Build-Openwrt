@@ -13,7 +13,7 @@
 # Modify default IP
 sed -i 's/192.168.1.1/10.9.0.1/g' package/base-files/files/bin/config_generate
 
-#  modify
+#  modify NO.
 # 23.05.2
 #echo '47964456485559d992fe6f536131fc64' > vermagic
 # 23.05.3
@@ -22,7 +22,7 @@ sed -i 's/192.168.1.1/10.9.0.1/g' package/base-files/files/bin/config_generate
 #echo '59d1431675acc6823a33c7eb2323daeb' > vermagic
 # 23.05.5
 echo '59d1431675acc6823a33c7eb2323daeb' > vermagic
-
+# pass the modify NO.
 wget -O include/kernel-defaults.mk https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/kernel-defaults.mk
 wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/Makefile
 #curl -s https://downloads.openwrt.org/releases/23.05.2/targets/x86/64/openwrt-23.05.2-x86-64.manifest | grep kernel | awk '{print $3}' | awk -F- '{print $3}' > vermagic
