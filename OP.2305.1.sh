@@ -34,3 +34,7 @@ wget -O target/linux/x86/patches-5.15/600-bnx2x-warpcore-8727-2g5.patch https://
 git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
 git clone https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
+
+# 添加mosdns
+git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
+git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
