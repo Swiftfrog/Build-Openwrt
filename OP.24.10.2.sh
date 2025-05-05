@@ -23,7 +23,10 @@ sed -i 's/192.168.1.1/10.9.0.1/g' package/base-files/files/bin/config_generate
 # 23.05.5
 #echo '59d1431675acc6823a33c7eb2323daeb' > vermagic
 # 24.10.0
-echo 'a21259e4f338051d27a6443a3a7f7f1f' > vermagic
+#echo 'a21259e4f338051d27a6443a3a7f7f1f' > vermagic
+# 24.10.1
+echo 'af351158cfb5febf5155a3aa53785982' > vermagic
+
 # pass the modify NO.
 wget -O include/kernel-defaults.mk https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/kernel-defaults.mk
 wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/Makefile
