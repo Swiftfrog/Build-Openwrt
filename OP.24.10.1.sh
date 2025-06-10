@@ -32,6 +32,9 @@
 # 添加edge主题
 #git clone https://github.com/kiddin9/luci-theme-edge.git package/luci-theme-edge
 
+# 添加design主题
+git clone -b js https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
+
 # 添加passwall
 git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 #git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
