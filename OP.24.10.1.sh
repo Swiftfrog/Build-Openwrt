@@ -16,7 +16,7 @@
 # 23.05
 #wget -O target/linux/x86/patches-5.15/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/2.5G/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
 # 24.10
-wget -O target/linux/x86/patches-6.6/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/2.5G/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
+#wget -O target/linux/x86/patches-6.6/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/2.5G/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
 # master
 #wget -O target/linux/x86/patches-6.6/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
 
@@ -33,7 +33,7 @@ wget -O target/linux/x86/patches-6.6/600-bnx2x-warpcore-8727-2g5.patch https://r
 #git clone https://github.com/kiddin9/luci-theme-edge.git package/luci-theme-edge
 
 # 添加design主题
-git clone -b js https://github.com/gngpp/luci-theme-design.git  package/luci-theme-design
+git clone https://github.com/kenzok78/luci-theme-design.git  package/luci-theme-design
 
 # 添加passwall
 git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
