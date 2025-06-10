@@ -33,7 +33,8 @@
 #git clone https://github.com/kiddin9/luci-theme-edge.git package/luci-theme-edge
 
 # 添加design主题
-git clone https://github.com/kenzok78/luci-theme-design.git  package/luci-theme-design
+git clone -b js https://github.com/papagaye744/luci-theme-design.git  package/luci-theme-design
+
 git clone https://github.com/gngpp/luci-app-design-config.git package/luci-app-design-config
 
 # 添加passwall
