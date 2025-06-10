@@ -34,6 +34,7 @@
 
 # 添加design主题
 git clone https://github.com/kenzok78/luci-theme-design.git  package/luci-theme-design
+git clone https://github.com/gngpp/luci-app-design-config.git package/luci-app-design-config
 
 # 添加passwall
 git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
