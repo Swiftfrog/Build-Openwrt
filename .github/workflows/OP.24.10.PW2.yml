@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: OP.24.10.0.PW2
+name: OP.24.10.PW2
 
 on:
   repository_dispatch:
