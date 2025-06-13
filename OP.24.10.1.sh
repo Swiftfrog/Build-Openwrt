@@ -27,7 +27,7 @@ wget -O target/linux/x86/patches-6.6/600-bnx2x-warpcore-8727-2g5.patch https://r
 # git clone https://github.com/rufengsuixing/luci-app-adguardhome package/luci-app-adguardhome
 
 # 添加argon主题
-#git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
+git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 
 # 添加edge主题
 #git clone https://github.com/kiddin9/luci-theme-edge.git package/luci-theme-edge
