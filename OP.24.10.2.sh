@@ -11,10 +11,10 @@
 #
 
 # 禁用 Rust（解决 CI 错误 + 加速编译）
-scripts/config.pl --disable CONFIG_PACKAGE_rust
-scripts/config.pl --disable CONFIG_PACKAGE_rust-src
-scripts/config.pl --disable CONFIG_PACKAGE_cargo
-scripts/config.pl --disable CONFIG_PACKAGE_libstd-rust
+# scripts/config.pl --disable CONFIG_PACKAGE_rust
+# scripts/config.pl --disable CONFIG_PACKAGE_rust-src
+# scripts/config.pl --disable CONFIG_PACKAGE_cargo
+# scripts/config.pl --disable CONFIG_PACKAGE_libstd-rust
 
 # Modify default IP
 sed -i 's/192.168.1.1/10.9.0.1/g' package/base-files/files/bin/config_generate
