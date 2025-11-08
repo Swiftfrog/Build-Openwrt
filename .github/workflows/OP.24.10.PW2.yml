@@ -169,11 +169,31 @@ jobs:
         retain_days: 1
         keep_minimum_runs: 3
 
-    - name: Remove old Releases
-      uses: dev-drprasad/delete-older-releases@v0.3.4
-      if: env.UPLOAD_RELEASE == 'true' && !cancelled()
-      with:
-        keep_latest: 3
-        delete_tags: true
+    # - name: Remove old Releases
+    #   uses: dev-drprasad/delete-older-releases@v0.3.4
+    #   if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+    #   with:
+    #     keep_latest: 3
+    #     delete_tags: true
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Delete older releases (keep latest 3)
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        # 获取所有 release（按时间倒序）
+        releases=$(gh api repos/${{ github.repository }}/releases --paginate --jq '.[].id')
+        count=0
+        for release_id in $releases; do
+          count=$((count + 1))
+          if [ $count -gt 3 ]; then
+            echo "Deleting release ID: $release_id"
+            gh api repos/${{ github.repository }}/releases/$release_id -X DELETE
+            # 如果也想删对应 tag（可选）
+            tag_name=$(gh api repos/${{ github.repository }}/releases/$release_id --jq '.tag_name')
+            if [ -n "$tag_name" ]; then
+              gh api repos/${{ github.repository }}/git/refs/tags/$tag_name -X DELETE
+            fi
+          fi
+        done
