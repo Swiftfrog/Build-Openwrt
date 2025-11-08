@@ -75,7 +75,7 @@ jobs:
       run: |
         df -hT $PWD
         # git clone --depth=1 $REPO_URL openwrt
-        git cloen git@github.com:openwrt/openwrt.git
+        git clone git@github.com:openwrt/openwrt.git
         cd openwrt
         # git fetch --tags origin $REPO_BRANCH
         git checkout $REPO_BRANCH
