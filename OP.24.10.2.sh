@@ -31,12 +31,36 @@ sed -i 's/192.168.1.1/10.9.0.1/g' package/base-files/files/bin/config_generate
 # 24.10.3
 # echo '3505295dd1edf1c0eda57c9ce372bf57' > vermagic
 # 24.10.4
-echo '484466e2719a743506c36b4bb2103582' > vermagic
+# echo '484466e2719a743506c36b4bb2103582' > vermagic
 
-# pass the modify NO.
-wget -O include/kernel-defaults.mk https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/kernel-defaults.mk
-wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/Makefile
-#curl -s https://downloads.openwrt.org/releases/23.05.2/targets/x86/64/openwrt-23.05.2-x86-64.manifest | grep kernel | awk '{print $3}' | awk -F- '{print $3}' > vermagic
+# # pass the modify NO.
+# wget -O include/kernel-defaults.mk https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/kernel-defaults.mk
+# wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/Makefile
+# #curl -s https://downloads.openwrt.org/releases/23.05.2/targets/x86/64/openwrt-23.05.2-x86-64.manifest | grep kernel | awk '{print $3}' | awk -F- '{print $3}' > vermagic
+
+# === 从官方 manifest 自动提取 vermagic ===
+VERSION="24.10.4"
+TARGET_BOARD="x86"
+TARGET_SUBTARGET="64"
+MANIFEST_URL="https://downloads.openwrt.org/releases/${VERSION}/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/openwrt-${VERSION}-${TARGET_BOARD}-${TARGET_SUBTARGET}.manifest"
+
+echo "Fetching vermagic from: $MANIFEST_URL"
+
+if curl -sf "$MANIFEST_URL" | grep -q 'kernel.*~.*-r'; then
+    # 提取 vermagic: 从 ~ 后开始，到 -r 之前结束
+    VERMAGIC=$(curl -sf "$MANIFEST_URL" | grep 'kernel.*~.*-r' | sed -n 's/.*~\([0-9a-f]\{32\}\)-r.*/\1/p')
+    if [ -n "$VERMAGIC" ] && [ ${#VERMAGIC} -eq 32 ]; then
+        echo "$VERMAGIC" > vermagic
+        echo "✅ Official vermagic extracted: $VERMAGIC"
+    else
+        echo "❌ Failed to parse vermagic from manifest."
+        exit 1
+    fi
+else
+    echo "❌ Kernel line not found in manifest."
+    exit 1
+fi
+# === 从官方 manifest 自动提取 vermagic ===
 
 #update golang
 rm -rf feeds/packages/lang/golang
