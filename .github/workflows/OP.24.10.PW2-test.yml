@@ -67,8 +67,8 @@ jobs:
     #     git clone $REPO_URL -b $REPO_BRANCH openwrt
     #     ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: Install LLVM
-      uses: sbwml/actions@install-llvm
+    # - name: Install LLVM
+    #   uses: sbwml/actions@install-llvm
     
     - name: Clone source code
       working-directory: /workdir
@@ -114,6 +114,8 @@ jobs:
       id: compile
       run: |
         cd openwrt
+        export CI=false
+        export GITHUB_ACTIONS=false
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "status=success" >> $GITHUB_OUTPUT
