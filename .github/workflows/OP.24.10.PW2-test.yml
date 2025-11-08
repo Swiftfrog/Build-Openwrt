@@ -74,10 +74,9 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        # git clone --depth=1 $REPO_URL openwrt
-        git clone https://github.com/openwrt/openwrt.git
+        git clone --depth=1 $REPO_URL openwrt
         cd openwrt
-        # git fetch --tags origin $REPO_BRANCH
+        git fetch --tags origin $REPO_BRANCH
         git checkout $REPO_BRANCH
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
