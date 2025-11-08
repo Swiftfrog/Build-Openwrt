@@ -66,6 +66,9 @@ jobs:
     #     df -hT $PWD
     #     git clone $REPO_URL -b $REPO_BRANCH openwrt
     #     ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+
+    - name: Install LLVM
+      uses: sbwml/actions@install-llvm
     
     - name: Clone source code
       working-directory: /workdir
