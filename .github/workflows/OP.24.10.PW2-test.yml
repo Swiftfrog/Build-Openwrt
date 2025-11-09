@@ -159,22 +159,50 @@ jobs:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-    - name: Generate release tag
-      id: tag
+    # - name: Generate release tag
+    #   id: tag
+    #   if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+    #   run: |
+    #     echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
+    #     touch release.txt
+    #     [ ${UPLOAD_GOFILE} = true && ${{ steps.gofile.outputs.url }} ] && echo "🔗 [GoFile](${{ steps.gofile.outputs.url }})" >> release.txt
+    #     echo "status=success" >> $GITHUB_OUTPUT
+
+    - name: Generate release info
+      id: release_info
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "release_tag=$(date +"%Y.%m.%d-%H%M")" >> $GITHUB_OUTPUT
-        touch release.txt
-        [ ${UPLOAD_GOFILE} = true && ${{ steps.gofile.outputs.url }} ] && echo "🔗 [GoFile](${{ steps.gofile.outputs.url }})" >> release.txt
+        # 获取分支/标签名（即 REPO_BRANCH）
+        TAG_NAME="${{ env.REPO_BRANCH }}"
+        # 获取编译日期（格式：YYYYMMDD）
+        BUILD_DATE=$(date +"%Y%m%d")
+        # 组合 Release 标题
+        RELEASE_NAME="OpenWrt-${TAG_NAME}-${BUILD_DATE}"
+        # 输出供后续步骤使用
+        echo "tag_name=${TAG_NAME}-${BUILD_DATE}" >> $GITHUB_OUTPUT
+        echo "release_name=${RELEASE_NAME}" >> $GITHUB_OUTPUT
+        # 创建 release 描述文件
+        echo "固件基于 OpenWrt ${TAG_NAME} 编译，编译时间：$(date)" > release.txt
         echo "status=success" >> $GITHUB_OUTPUT
+
+    # - name: Upload firmware to release
+    #   uses: softprops/action-gh-release@master
+    #   if: steps.tag.outputs.status == 'success' && !cancelled()
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     tag_name: ${{ steps.tag.outputs.release_tag }}
+    #     body_path: release.txt
+    #     files: ${{ env.FIRMWARE }}/*
 
     - name: Upload firmware to release
       uses: softprops/action-gh-release@master
-      if: steps.tag.outputs.status == 'success' && !cancelled()
+      if: steps.release_info.outputs.status == 'success' && !cancelled()
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: ${{ steps.tag.outputs.release_tag }}
+        tag_name: ${{ steps.release_info.outputs.tag_name }}
+        name: ${{ steps.release_info.outputs.release_name }}   # ← 这就是 Release 标题！
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 
