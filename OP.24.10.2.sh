@@ -75,8 +75,8 @@ EOF
 echo "✅ include/kernel-version.mk generated."
 
 # === 4. 清理内核构建缓存，防止旧 .vermagic 生效 ===
-echo "🧹 Cleaning kernel build cache..."
-rm -rf build_dir/target-*/linux-*
+# echo "🧹 Cleaning kernel build cache..."
+# rm -rf build_dir/target-*/linux-*
 
 # update golang
 rm -rf feeds/packages/lang/golang
