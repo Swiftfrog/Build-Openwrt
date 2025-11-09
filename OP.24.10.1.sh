@@ -9,34 +9,21 @@
 # File name: diy-part1.sh
 # Description: OpenWrt DIY script part 1 (Before Update feeds)
 
-# Uncomment a feed source
-#sed -i 's/^#\(.*helloworld\)/\1/' feeds.conf.default
+# Apply 2.5G patch for BCM57810
+wget -O target/linux/x86/patches-6.6/600-bnx2x-warpcore-8727-2g5.patch \
+  https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/2.5G/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
 
-# Modify BCM57810
-# 23.05
-#wget -O target/linux/x86/patches-5.15/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/2.5G/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
-# 24.10
-wget -O target/linux/x86/patches-6.6/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/2.5G/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
-# master
-#wget -O target/linux/x86/patches-6.6/600-bnx2x-warpcore-8727-2g5.patch https://raw.githubusercontent.com/JAMESMTL/snippets/master/bnx2x/patches/bnx2x_warpcore_8727_2_5g_sgmii_txfault.patch
+# luci-theme-argon: use 'master' (compatible with 24.10 LuCI)
+git clone -b master https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
 
+# passwall2: MUST use openwrt-24.10 branch
+git clone -b openwrt-24.10 https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
 
-# 添加APP过滤模块
-# git clone https://github.com/destan19/OpenAppFilter package/OpenAppFilter
-# 添加AdguardHome
-# git clone https://github.com/rufengsuixing/luci-app-adguardhome package/luci-app-adguardhome
+# passwall-packages (dependency for passwall2)
+git clone -b openwrt-24.10 https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
 
-# 添加argon主题
-git clone https://github.com/jerrykuku/luci-theme-argon.git package/luci-theme-argon
+# mosdns: use v5 branch (confirmed working on 24.10)
+git clone -b v5 https://github.com/sbwml/luci-app-mosdns.git package/mosdns
 
-# 添加edge主题
-#git clone https://github.com/kiddin9/luci-theme-edge.git package/luci-theme-edge
-
-# 添加passwall
-git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall-packages
-#git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall
-git clone https://github.com/xiaorouji/openwrt-passwall2.git package/passwall2
-
-# 添加mosdns
-git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
-git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+# geodata
+git clone -b master https://github.com/sbwml/v2ray-geodata.git package/v2ray-geodata
