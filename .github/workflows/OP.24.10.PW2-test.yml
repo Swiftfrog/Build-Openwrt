@@ -90,17 +90,17 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    - name: Apply Rust Patch (PR #27487)
-      run: |
-        cd openwrt/feeds/packages
-        # 下载 PR 的补丁文件
-        wget -O rust_fix.patch https://github.com/openwrt/packages/pull/27487.patch
-        # 尝试应用补丁
-        # 如果你的源码版本与补丁差异太大，可能会失败
-        git apply rust_fix.patch || patch -p1 < rust_fix.patch
-        # 清理补丁文件
-        rm rust_fix.patch
-        echo "Rust patch applied successfully"
+    # - name: Apply Rust Patch (PR #27487)
+    #   run: |
+    #     cd openwrt/feeds/packages
+    #     # 下载 PR 的补丁文件
+    #     wget -O rust_fix.patch https://github.com/openwrt/packages/pull/27487.patch
+    #     # 尝试应用补丁
+    #     # 如果你的源码版本与补丁差异太大，可能会失败
+    #     git apply rust_fix.patch || patch -p1 < rust_fix.patch
+    #     # 清理补丁文件
+    #     rm rust_fix.patch
+    #     echo "Rust patch applied successfully"
 
     - name: Load custom configuration
       run: |
