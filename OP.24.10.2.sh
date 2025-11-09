@@ -38,45 +38,27 @@ sed -i 's/192.168.1.1/10.9.0.1/g' package/base-files/files/bin/config_generate
 # wget -O package/kernel/linux/Makefile https://raw.githubusercontent.com/Swiftfrog/Build-Openwrt/main/Version/Makefile
 # #curl -s https://downloads.openwrt.org/releases/23.05.2/targets/x86/64/openwrt-23.05.2-x86-64.manifest | grep kernel | awk '{print $3}' | awk -F- '{print $3}' > vermagic
 
-# === 配置你的目标平台 ===
+# === 1. 从 manifest 提取 vermagic ===
 VERSION="24.10.4"
 TARGET_BOARD="x86"
 TARGET_SUBTARGET="64"
-
-# === 1. 从官方 manifest 提取 vermagic ===
 MANIFEST_URL="https://downloads.openwrt.org/releases/${VERSION}/targets/${TARGET_BOARD}/${TARGET_SUBTARGET}/openwrt-${VERSION}-${TARGET_BOARD}-${TARGET_SUBTARGET}.manifest"
 
-echo "🔍 Fetching vermagic from manifest: $MANIFEST_URL"
-
-if ! curl -sf "$MANIFEST_URL" | grep -q 'kernel.*~.*-r'; then
-    echo "❌ Kernel line not found in manifest. Aborting."
-    exit 1
-fi
-
 VERMAGIC=$(curl -sf "$MANIFEST_URL" | grep 'kernel.*~.*-r' | sed -n 's/.*~\([0-9a-f]\{32\}\)-r.*/\1/p')
-
 if [ -z "$VERMAGIC" ] || [ ${#VERMAGIC} -ne 32 ]; then
-    echo "❌ Failed to parse vermagic from manifest."
+    echo "❌ Failed to extract vermagic"
     exit 1
 fi
 
-echo "✅ Official vermagic extracted: $VERMAGIC"
-
-# === 2. 写入 vermagic 文件（供 kernel-defaults.mk 使用）===
+# === 2. 写入 vermagic 文件 ===
 echo "$VERMAGIC" > vermagic
 
-# === 3. 【关键】强制锁定 LINUX_VERMAGIC，确保所有模块一致 ===
-# 这是 OpenWrt SDK 的标准做法，100% 生效
-cat > include/kernel-version.mk <<EOF
-LINUX_VERMAGIC:=$VERMAGIC
-LINUX_RELEASE:=1
-EOF
+# === 3. 自动修订 kernel-defaults.mk ===
+sed -i '/grep.*LC_ALL.*sort.*MKHASH.*md5/s/^/# /' include/kernel-defaults.mk
+sed -i '/headers_install/a\\tcp $(TOPDIR)/vermagic $(LINUX_DIR)/.vermagic' include/kernel-defaults.mk
 
-echo "✅ include/kernel-version.mk generated."
-
-# === 4. 清理内核构建缓存，防止旧 .vermagic 生效 ===
-# echo "🧹 Cleaning kernel build cache..."
-# rm -rf build_dir/target-*/linux-*
+echo "✅ vermagic = $VERMAGIC"
+echo "✅ kernel-defaults.mk patched"
 
 # update golang
 rm -rf feeds/packages/lang/golang
