@@ -78,20 +78,13 @@ jobs:
         git checkout $REPO_BRANCH
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    # - name: Clone source code
-    #   working-directory: /workdir
-    #   run: |
-    #     df -hT $PWD
-    #     git clone --branch $REPO_BRANCH --single-branch $REPO_URL openwrt
-    #     ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-
     - name: Cache dl directory
       uses: actions/cache@v3
       with:
         path: /workdir/openwrt/dl
         key: openwrt-dl-${{ env.REPO_URL }}-${{ env.REPO_BRANCH }}-${{ hashFiles('**/feeds.conf*') }}
         restore-keys: |
-          openwrt-dl-${{ env.REPO_URL }}-${{ env.REPO_BRANCH }}-
+          openwrt-dl-${{ env.REPO_BRANCH }}-
           openwrt-dl-
 
     - name: Load custom feeds
