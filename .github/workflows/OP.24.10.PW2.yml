@@ -85,13 +85,6 @@ jobs:
         git clone --branch $REPO_BRANCH --single-branch $REPO_URL openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
-    - name: Clone source code
-      working-directory: /workdir
-      run: |
-        df -hT $PWD
-        git clone --branch $REPO_BRANCH --single-branch $REPO_URL openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-
     - name: Cache dl directory
       uses: actions/cache@v3
       with:
