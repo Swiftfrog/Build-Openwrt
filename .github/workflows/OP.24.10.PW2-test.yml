@@ -90,18 +90,6 @@ jobs:
     - name: Install feeds
       run: cd openwrt && ./scripts/feeds install -a
 
-    # - name: Apply Rust Patch (PR #27487)
-    #   run: |
-    #     cd openwrt/feeds/packages
-    #     # 下载 PR 的补丁文件
-    #     wget -O rust_fix.patch https://github.com/openwrt/packages/pull/27487.patch
-    #     # 尝试应用补丁
-    #     # 如果你的源码版本与补丁差异太大，可能会失败
-    #     git apply rust_fix.patch || patch -p1 < rust_fix.patch
-    #     # 清理补丁文件
-    #     rm rust_fix.patch
-    #     echo "Rust patch applied successfully"
-
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
@@ -185,16 +173,6 @@ jobs:
         echo "固件基于 OpenWrt ${TAG_NAME} 编译，编译时间：$(date)" > release.txt
         echo "status=success" >> $GITHUB_OUTPUT
 
-    # - name: Upload firmware to release
-    #   uses: softprops/action-gh-release@master
-    #   if: steps.tag.outputs.status == 'success' && !cancelled()
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     tag_name: ${{ steps.tag.outputs.release_tag }}
-    #     body_path: release.txt
-    #     files: ${{ env.FIRMWARE }}/*
-
     - name: Upload firmware to release
       uses: softprops/action-gh-release@master
       if: steps.release_info.outputs.status == 'success' && !cancelled()
@@ -202,7 +180,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: ${{ steps.release_info.outputs.tag_name }}
-        name: ${{ steps.release_info.outputs.release_name }}   # ← 这就是 Release 标题！
+        name: ${{ steps.release_info.outputs.release_name }}
         body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 
@@ -216,7 +194,7 @@ jobs:
       uses: dev-drprasad/delete-older-releases@master
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        keep_latest: 3
+        keep_latest: 6
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
